@@ -13,13 +13,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Compte admin
-        User::create([
-            'name'     => 'BARA POUYE',
-            'email'    => 'admin@bara-deco.sn',
-            'password' => Hash::make('BaraDeco2025!'),
-            'is_admin' => true,
-        ]);
-
+        User::firstOrCreate(
+            ['email' => 'admin@bara-deco.sn'],
+            [
+                'name'     => 'BARA POUYE',
+                'password' => Hash::make('BaraDeco2025!'),
+                'is_admin' => true,
+            ]
+        );
         // Services (données réelles du site)
         $services = [
             [
@@ -53,7 +54,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($services as $s) {
-            Service::create($s);
+            Service::firstOrCreate($s);
         }
 
         // Note: les projets (portfolio) sont ajoutés via l'interface admin
@@ -112,7 +113,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($projects as $p) {
-            Project::create($p);
+            Project::firstOrCreate($p);
         }
     }
 
